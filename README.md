@@ -10,7 +10,6 @@ Dataset
 http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
 
 Files
-CodeBook.md a code book that describes the variables, the data, and any transformations or work that has been performed to clean up the data.
 
 run_analysis.R performs the data preparation or the preprocessing and then followed by 5 steps required as described in the course project’s instructions:
 Merges the training and the test sets to create one data set.
