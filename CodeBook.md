@@ -28,4 +28,4 @@ c.Merged_Data (10299 rows, 68 column) is created by merging train and test using
 
 4. creates a second, independent tidy data set with the average of each variable for each activity and each subject
   merged (180 rows, 68 columns) is modified by sumarizing TidyData taking the means of each variable for each activity and each subject, after groupped by subject and activity.
-  Export FinalData into TidyData.txt file.
+  Export merged into TidyData.txt file.
