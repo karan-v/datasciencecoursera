@@ -11,9 +11,11 @@ features <- fread(file.path(path,"UCI HAR Dataset/features.txt")
                   ,col.names = c("index","fname"))
 
 featreq <- grep("(mean|std)\\(\\)",features$fname)
+renamefeat <- features[featreq,fname]
 
 #reading the training data
 train <- fread(file.path(path,"UCI HAR Dataset/train/X_train.txt"))[,featreq,with = FALSE]
+names(train) <- renamefeat
 labels_train <- fread(file.path(path,"UCI HAR Dataset/train/y_train.txt"),
                       col.names = c("class"))
 sub_train <- fread(file.path(path,"UCI HAR Dataset/train/subject_train.txt"),
@@ -22,6 +24,7 @@ train <- cbind(train,labels_train,sub_train)
 
 #reading the test data
 test <- fread(file.path(path,"UCI HAR Dataset/test/X_test.txt"))[,featreq,with = FALSE]
+names(test) <- renamefeat
 labels_test <- fread(file.path(path,"UCI HAR Dataset/test/y_test.txt"),
                      col.names = c("class"))
 sub_test <- fread(file.path(path,"UCI HAR Dataset/test/subject_test.txt"),
@@ -36,5 +39,7 @@ merged[["subname"]] <- as.factor(merged[ ,subname])
 
 merged <- reshape2::melt(merged,id = c("class","subname"))
 merged <- reshape2::dcast(merged,class+subname~variable,mean)
+names(merged)[names(merged) == "class"] <- "activity"
+names(merged)[names(merged) == "subname"] <- "subject"
 
-data.table::fwrite(x = merged,file = "tidyData.txt",quote = FALSE)
+write.table(merged, "TidyData.txt", row.name=FALSE)
